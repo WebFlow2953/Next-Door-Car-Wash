@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Next Door Mobile Car Wash | Port Shepstone & Scottburgh</title>
+<meta name="description" content="Premium mobile car wash service in Port Shepstone and Scottburgh. We come to you. Book now!">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/telma" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/general-sans" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>(function(){ emailjs.init("I2zlWQ4OfOQADV6jj"); })();</script>
+<style>
+:root {
+  --neon:#39FF14; --ndim:#2bc910; --nglow:rgba(57,255,20,.35);
+  --dark:#060806; --dark2:#0b0e0b; --dcard:rgba(13,18,13,.9);
+  --glass:rgba(57,255,20,.05); --gb:rgba(57,255,20,.14);
+  --white:#eef5ee; --muted:rgba(238,245,238,.48);
+  --fd:'Telma','DM Sans',serif; --fs:'General Sans','DM Sans',sans-serif; --fb:'DM Sans',sans-serif;
+  --sp-sm:clamp(.75rem,2vw,1rem); --sp-md:clamp(1rem,3vw,1.5rem);
+  --sp-lg:clamp(1.5rem,4vw,2.5rem); --sp-xl:clamp(2rem,6vw,4rem);
+  --sec:clamp(3rem,8vw,6rem) clamp(1rem,6vw,7%);
+  --rm:8px; --rmd:14px; --rl:20px; --rxl:28px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{background:var(--dark);color:var(--white);font-family:var(--fb);overflow-x:hidden;line-height:1.6;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button{border:none;background:none;cursor:pointer;font-family:inherit;}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--dark);}::-webkit-scrollbar-thumb{background:var(--ndim);border-radius:3px;}
+
+@media(pointer:fine){
+  body{cursor:none;}
+  .cur,.cur-r{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+  .cur{width:10px;height:10px;background:var(--neon);border-radius:50%;mix-blend-mode:screen;transition:width .15s,height .15s;}
+  .cur-r{width:34px;height:34px;border:1.5px solid var(--neon);border-radius:50%;opacity:.45;z-index:9998;transition:width .25s,height .25s;}
+}
+
+#nav{position:fixed;inset:0 0 auto 0;z-index:200;padding:clamp(.8rem,2vw,1.2rem) clamp(1rem,5vw,5%);display:flex;align-items:center;justify-content:space-between;transition:background .35s,border-color .35s;border-bottom:1px solid transparent;}
+#nav.on{background:rgba(6,8,6,.94);backdrop-filter:blur(22px);border-color:var(--gb);}
+.nav-b{display:flex;align-items:center;gap:.7rem;}
+.nav-b img{width:clamp(36px,5vw,46px);height:clamp(36px,5vw,46px);border-radius:50%;border:1.5px solid var(--gb);object-fit:cover;flex-shrink:0;}
+.nav-b-t{font-family:var(--fs);font-weight:700;font-size:clamp(.72rem,1.4vw,.88rem);line-height:1.15;}
+.nav-b-t b{color:var(--neon);font-weight:800;}
+.nav-l{display:flex;gap:clamp(1rem,2.5vw,2rem);list-style:none;}
+.nav-l a{color:var(--muted);font-family:var(--fs);font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;position:relative;transition:color .2s;}
+.nav-l a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--neon);transform:scaleX(0);transition:transform .22s;}
+.nav-l a:hover{color:var(--neon);}.nav-l a:hover::after{transform:scaleX(1);}
+.nav-bk{background:var(--neon);color:var(--dark);padding:.48rem 1.3rem;border-radius:5px;font-family:var(--fs);font-weight:700;font-size:.78rem;letter-spacing:.04em;transition:box-shadow .2s,transform .2s;white-space:nowrap;}
+.nav-bk:hover{box-shadow:0 0 22px var(--nglow);transform:translateY(-1px);}
+.ham{display:none;flex-direction:column;gap:5px;padding:.4rem;border-radius:6px;border:1px solid var(--gb);background:rgba(57,255,20,.04);}
+.ham span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;}
+.mob{display:none;position:fixed;inset:0;background:rgba(6,8,6,.97);z-index:199;flex-direction:column;align-items:center;justify-content:center;gap:clamp(1.2rem,4vw,2rem);backdrop-filter:blur(20px);}
+.mob.open{display:flex;}
+.mob a{font-family:var(--fd);font-style:italic;font-size:clamp(1.8rem,6vw,3rem);font-weight:700;transition:color .2s;}
+.mob a:hover{color:var(--neon);}
+.mob-x{position:absolute;top:1.5rem;right:5%;font-size:1.8rem;color:var(--white);opacity:.6;}
+
+#hero{min-height:100svh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:var(--sec);padding-top:calc(clamp(3rem,8vw,6rem) + 80px);}
+.hbg{position:absolute;inset:0;z-index:0;background-image:url('https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=1600&q=80');background-size:cover;background-position:center;}
+.hbg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(6,8,6,.93) 0%,rgba(6,8,6,.72) 50%,rgba(6,8,6,.9) 100%);}
+.hgrid{position:absolute;inset:0;z-index:1;background-image:linear-gradient(rgba(57,255,20,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(57,255,20,.04) 1px,transparent 1px);background-size:55px 55px;mask-image:radial-gradient(ellipse at 50% 50%,black 20%,transparent 75%);}
+#pc{position:absolute;inset:0;z-index:2;pointer-events:none;}
+.hc{position:relative;z-index:3;text-align:center;max-width:clamp(300px,90vw,860px);width:100%;}
+.chip{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--gb);background:rgba(57,255,20,.06);padding:.35rem .9rem;border-radius:100px;font-family:var(--fs);font-size:clamp(.62rem,.9vw,.72rem);letter-spacing:.12em;text-transform:uppercase;color:var(--neon);margin-bottom:var(--sp-lg);backdrop-filter:blur(10px);animation:fD .8s ease .2s both;}
+.chip::before{content:'';width:6px;height:6px;background:var(--neon);border-radius:50%;animation:bl 2s infinite;}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
+.h1{font-family:var(--fd);font-style:italic;font-size:clamp(2.4rem,6.5vw,5.2rem);font-weight:700;line-height:1.02;letter-spacing:-.01em;margin-bottom:var(--sp-md);animation:fU .9s ease .4s both;}
+.h1 em{font-style:normal;color:var(--neon);text-shadow:0 0 40px var(--nglow),0 0 80px rgba(57,255,20,.2);}
+.hsub{font-size:clamp(.88rem,1.5vw,1.1rem);color:var(--muted);max-width:520px;margin:0 auto var(--sp-sm);line-height:1.75;animation:fU .9s ease .55s both;}
+.htag{font-family:var(--fd);font-style:italic;font-size:clamp(1rem,2vw,1.2rem);color:var(--neon);margin-bottom:var(--sp-lg);animation:fU .9s ease .65s both;}
+.hbtns{display:flex;gap:var(--sp-sm);justify-content:center;flex-wrap:wrap;animation:fU .9s ease .75s both;}
+.bp{background:var(--neon);color:var(--dark);padding:.85rem clamp(1.2rem,3vw,2rem);border-radius:6px;font-family:var(--fs);font-weight:700;font-size:clamp(.78rem,1.2vw,.93rem);letter-spacing:.04em;transition:box-shadow .25s,transform .2s;display:inline-flex;align-items:center;gap:.45rem;white-space:nowrap;}
+.bp:hover{box-shadow:0 0 30px var(--nglow);transform:translateY(-2px);}
+.bg2{border:1.5px solid var(--gb);color:var(--white);padding:.85rem clamp(1.2rem,3vw,2rem);border-radius:6px;font-family:var(--fs);font-weight:600;font-size:clamp(.78rem,1.2vw,.93rem);letter-spacing:.04em;transition:border-color .25s,color .25s,transform .2s;display:inline-flex;align-items:center;gap:.45rem;backdrop-filter:blur(10px);background:rgba(255,255,255,.03);white-space:nowrap;}
+.bg2:hover{border-color:var(--neon);color:var(--neon);transform:translateY(-2px);}
+.hstats{display:flex;justify-content:center;gap:clamp(1.5rem,5vw,3.5rem);flex-wrap:wrap;margin-top:var(--sp-xl);animation:fU .9s ease .9s both;}
+.snum{font-family:var(--fd);font-style:italic;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:700;color:var(--neon);line-height:1;}
+.slbl{font-size:clamp(.62rem,.9vw,.72rem);color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:.3rem;font-family:var(--fs);}
+.scr{position:absolute;bottom:clamp(1.5rem,3vw,2.5rem);left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:.4rem;opacity:.4;animation:fI 1s ease 1.5s both;}
+.scr span{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-family:var(--fs);}
+.sb{width:1px;height:36px;background:linear-gradient(to bottom,transparent,var(--neon));animation:sp 2s ease infinite;}
+@keyframes sp{0%{transform:scaleY(0);transform-origin:top}49%{transform:scaleY(1);transform-origin:top}50%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+.sec{padding:var(--sec);}
+.sd2{background:var(--dark2);}
+.sb2{border-top:1px solid var(--gb);border-bottom:1px solid var(--gb);}
+.lbl{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--fs);font-size:clamp(.62rem,.9vw,.7rem);letter-spacing:.18em;text-transform:uppercase;color:var(--neon);margin-bottom:.75rem;}
+.lbl::before{content:'';width:18px;height:1px;background:var(--neon);}
+.sh{font-family:var(--fd);font-style:italic;font-size:clamp(1.9rem,4.5vw,3rem);font-weight:700;line-height:1.08;letter-spacing:-.01em;margin-bottom:var(--sp-sm);}
+.sh em{font-style:normal;color:var(--neon);}
+.sp2{color:var(--muted);font-size:clamp(.83rem,1.3vw,.98rem);line-height:1.75;max-width:520px;}
+
+#about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,5rem);align-items:center;}
+.avis{position:relative;}
+.aorb{width:min(380px,90%);aspect-ratio:1;border-radius:50%;border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;margin:0 auto;background:radial-gradient(circle,rgba(57,255,20,.06) 0%,transparent 70%);position:relative;}
+.aorb::before{content:'';position:absolute;inset:-12px;border-radius:50%;border:1px solid rgba(57,255,20,.08);animation:spin 22s linear infinite;}
+.aorb::after{content:'';position:absolute;inset:-28px;border-radius:50%;border:1px dashed rgba(57,255,20,.06);animation:spin 35s linear infinite reverse;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.aorb img{width:72%;height:72%;border-radius:50%;object-fit:cover;}
+.abadge{position:absolute;bottom:8%;right:4%;background:rgba(6,8,6,.92);border:1px solid var(--gb);backdrop-filter:blur(12px);border-radius:var(--rmd);padding:.75rem 1.1rem;text-align:center;}
+.ab-n{font-family:var(--fd);font-style:italic;font-size:1.7rem;font-weight:700;color:var(--neon);line-height:1;}
+.ab-l{font-size:.68rem;color:var(--muted);font-family:var(--fs);}
+.afeats{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-sm);margin-top:var(--sp-lg);}
+.af{background:var(--glass);border:1px solid var(--gb);border-radius:var(--rmd);padding:1rem 1.1rem;display:flex;gap:.65rem;align-items:flex-start;transition:border-color .25s;}
+.af:hover{border-color:rgba(57,255,20,.3);}
+.af-i{font-size:1.3rem;flex-shrink:0;margin-top:.1rem;}
+.af-t{font-family:var(--fs);font-size:.82rem;font-weight:700;margin-bottom:.18rem;}
+.af-d{font-size:.75rem;color:var(--muted);line-height:1.55;}
+
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:clamp(.8rem,2vw,1.2rem);margin-top:var(--sp-xl);}
+.srv{background:var(--dcard);border:1px solid var(--gb);border-radius:var(--rl);padding:1.8rem 1.6rem;position:relative;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s;}
+.srv::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon),transparent);opacity:0;transition:opacity .3s;}
+.srv:hover::before{opacity:1;}
+.srv:hover{transform:translateY(-6px);border-color:rgba(57,255,20,.28);box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 25px rgba(57,255,20,.06);}
+.srv.hot{border-color:rgba(57,255,20,.38);background:rgba(57,255,20,.04);}
+.srv.hot::after{content:'POPULAR';position:absolute;top:1.1rem;right:1.1rem;background:var(--neon);color:var(--dark);font-family:var(--fs);font-size:.6rem;font-weight:800;letter-spacing:.1em;padding:.2rem .55rem;border-radius:4px;}
+.simg{width:100%;height:160px;object-fit:cover;border-radius:var(--rm);margin-bottom:1.2rem;transition:transform .4s;}
+.srv:hover .simg{transform:scale(1.03);}
+.sico{font-size:2.2rem;margin-bottom:.9rem;display:block;}
+.styp{font-family:var(--fs);font-size:.98rem;font-weight:700;margin-bottom:.35rem;}
+.sdsc{font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:1.4rem;}
+.sprc{font-family:var(--fd);font-style:italic;font-size:2rem;font-weight:700;color:var(--neon);line-height:1;}
+.sprc span{font-size:.88rem;font-style:normal;color:var(--muted);font-family:var(--fs);font-weight:400;}
+.sbtn{display:block;width:100%;margin-top:1.3rem;background:transparent;border:1px solid var(--gb);color:var(--white);padding:.7rem;border-radius:var(--rm);font-family:var(--fs);font-size:.82rem;font-weight:600;text-align:center;text-decoration:none;transition:background .2s,border-color .2s,color .2s;}
+.srv:hover .sbtn,.srv.hot .sbtn{background:var(--neon);border-color:var(--neon);color:var(--dark);}
+
+.hgrd{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,2.5vw,2rem);margin-top:var(--sp-xl);position:relative;}
+.hgrd::before{content:'';position:absolute;top:3.2rem;left:calc(16.66% + .5rem);right:calc(16.66% + .5rem);height:1px;background:linear-gradient(90deg,var(--neon),rgba(57,255,20,.2),var(--neon));opacity:.3;pointer-events:none;}
+.hw{text-align:center;padding:clamp(1.5rem,3vw,2.2rem) clamp(1rem,2vw,1.5rem);background:var(--dcard);border:1px solid var(--gb);border-radius:var(--rl);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;}
+.hw:hover{transform:translateY(-7px);box-shadow:0 18px 40px rgba(0,0,0,.4),0 0 18px rgba(57,255,20,.05);}
+.hwn{font-family:var(--fd);font-style:italic;font-size:3.5rem;font-weight:700;color:rgba(57,255,20,.1);line-height:1;position:absolute;top:.8rem;right:1.2rem;}
+.hwi{width:65px;height:65px;border-radius:50%;background:var(--glass);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;font-size:1.7rem;margin:0 auto 1.2rem;transition:background .3s,box-shadow .3s;}
+.hw:hover .hwi{background:rgba(57,255,20,.1);box-shadow:0 0 18px rgba(57,255,20,.2);}
+.hwt{font-family:var(--fs);font-size:1rem;font-weight:700;margin-bottom:.5rem;}
+.hwd{font-size:.82rem;color:var(--muted);line-height:1.65;}
+
+.ggrid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:230px 230px;gap:clamp(.6rem,1.2vw,1rem);margin-top:var(--sp-xl);}
+.gi{border-radius:var(--rmd);overflow:hidden;position:relative;}
+.gi.s2{grid-row:span 2;}
+.gi img{width:100%;height:100%;object-fit:cover;transition:transform .5s;display:block;}
+.gi:hover img{transform:scale(1.06);}
+.giov{position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,.75));opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:1rem 1.1rem;}
+.gi:hover .giov{opacity:1;}
+.gilbl{font-family:var(--fs);font-size:.82rem;font-weight:600;color:var(--white);}
+.ginb{position:absolute;inset:0;border:1.5px solid rgba(57,255,20,.15);border-radius:var(--rmd);pointer-events:none;transition:border-color .3s;}
+.gi:hover .ginb{border-color:rgba(57,255,20,.4);}
+
+.awrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:start;margin-top:var(--sp-xl);}
+.mbox{border-radius:var(--rl);overflow:hidden;border:1px solid var(--gb);height:clamp(280px,40vw,400px);}
+.mbox iframe{width:100%;height:100%;border:none;filter:grayscale(100%) invert(85%) hue-rotate(90deg) brightness(.85) contrast(1.1);}
+.acards{display:flex;flex-direction:column;gap:var(--sp-sm);}
+.ac{display:flex;align-items:center;gap:1rem;background:var(--glass);border:1px solid var(--gb);border-radius:var(--rmd);padding:1.1rem 1.3rem;transition:border-color .25s,box-shadow .25s;}
+.ac:hover{border-color:rgba(57,255,20,.35);box-shadow:0 0 18px rgba(57,255,20,.06);}
+.apin{width:42px;height:42px;border-radius:50%;flex-shrink:0;background:rgba(57,255,20,.1);border:1px solid rgba(57,255,20,.25);display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.anm{font-family:var(--fs);font-size:1rem;font-weight:700;}
+.asub{font-size:.75rem;color:var(--muted);margin-top:.15rem;}
+.anote{margin-top:var(--sp-sm);padding:1rem 1.3rem;background:rgba(57,255,20,.05);border:1px solid rgba(57,255,20,.18);border-radius:var(--rmd);font-size:.88rem;color:var(--neon);display:flex;align-items:center;gap:.7rem;font-family:var(--fs);}
+
+.rwrap{overflow:hidden;margin-top:var(--sp-xl);position:relative;}
+.rwrap::before,.rwrap::after{content:'';position:absolute;top:0;bottom:0;width:clamp(40px,8vw,100px);z-index:2;pointer-events:none;}
+.rwrap::before{left:0;background:linear-gradient(to right,var(--dark),transparent);}
+.rwrap::after{right:0;background:linear-gradient(to left,var(--dark),transparent);}
+.rtrack{display:flex;gap:clamp(1rem,2vw,1.5rem);animation:mq 32s linear infinite;width:max-content;}
+.rtrack:hover{animation-play-state:paused;}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.rc{width:clamp(260px,30vw,320px);flex-shrink:0;background:var(--dcard);border:1px solid var(--gb);border-radius:var(--rl);padding:1.6rem;backdrop-filter:blur(10px);}
+.rstar{color:var(--neon);font-size:.85rem;margin-bottom:.9rem;letter-spacing:2px;}
+.rtxt{font-size:.87rem;line-height:1.75;color:rgba(238,245,238,.82);margin-bottom:1.1rem;font-style:italic;}
+.rauth{display:flex;align-items:center;gap:.75rem;}
+.rav{width:36px;height:36px;border-radius:50%;background:rgba(57,255,20,.15);border:1px solid rgba(57,255,20,.3);display:flex;align-items:center;justify-content:center;font-family:var(--fs);font-weight:700;font-size:.85rem;color:var(--neon);flex-shrink:0;}
+.rnm{font-family:var(--fs);font-size:.86rem;font-weight:700;}
+.rloc{font-size:.72rem;color:var(--muted);}
+
+.bwrap{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(2rem,5vw,5rem);align-items:start;margin-top:var(--sp-xl);}
+.bcon .ci{display:flex;align-items:center;gap:.9rem;padding:1.1rem 0;border-bottom:1px solid var(--gb);}
+.cico{width:42px;height:42px;border-radius:var(--rm);flex-shrink:0;background:rgba(57,255,20,.08);border:1px solid rgba(57,255,20,.18);display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.clbl{font-family:var(--fs);font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+.cval{font-family:var(--fs);font-size:.93rem;font-weight:600;color:var(--white);text-decoration:none;transition:color .2s;}
+.cval:hover{color:var(--neon);}
+.bform{background:var(--dcard);border:1px solid var(--gb);border-radius:var(--rxl);padding:clamp(1.5rem,4vw,2.5rem);backdrop-filter:blur(20px);}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:.9rem;}
+.fg{display:flex;flex-direction:column;gap:.38rem;margin-bottom:.9rem;}
+.fl{font-family:var(--fs);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);}
+.fi,.fsel,.fta{background:rgba(255,255,255,.04);border:1px solid var(--gb);border-radius:var(--rm);padding:.8rem .95rem;color:var(--white);font-family:var(--fb);font-size:.88rem;outline:none;width:100%;transition:border-color .2s,box-shadow .2s;}
+.fi:focus,.fsel:focus,.fta:focus{border-color:rgba(57,255,20,.45);box-shadow:0 0 0 3px rgba(57,255,20,.06);}
+.fsel{appearance:none;}.fsel option{background:#0b0e0b;}
+.fta{resize:vertical;min-height:90px;}
+.bsub{width:100%;background:var(--neon);color:var(--dark);border:none;padding:.95rem;border-radius:var(--rm);font-family:var(--fs);font-weight:800;font-size:.93rem;letter-spacing:.06em;display:flex;align-items:center;justify-content:center;gap:.5rem;transition:box-shadow .25s,transform .2s,background .2s;cursor:pointer;}
+.bsub:hover{background:#50ff2a;box-shadow:0 0 36px var(--nglow);transform:translateY(-2px);}
+.bsub:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none;}
+.fsuc{display:none;text-align:center;padding:2rem 1rem;}
+.fsuc.show{display:block;}
+.fsuc .si{font-size:2.8rem;margin-bottom:.8rem;}
+.fsuc .st{font-family:var(--fd);font-style:italic;font-size:1.6rem;font-weight:700;color:var(--neon);margin-bottom:.5rem;}
+.fsuc .sm{font-size:.88rem;color:var(--muted);}
+
+#cta{position:relative;overflow:hidden;text-align:center;padding:clamp(4rem,10vw,8rem) clamp(1rem,6vw,7%);}
+.ctabg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80');background-size:cover;background-position:center;z-index:0;}
+.ctabg::after{content:'';position:absolute;inset:0;background:rgba(6,8,6,.88);}
+.ctaglow{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 70% 80% at 50% 50%,rgba(57,255,20,.1) 0%,transparent 65%);}
+.ctac{position:relative;z-index:2;}
+#cta .sh{font-size:clamp(2rem,5vw,3.8rem);margin-bottom:var(--sp-md);}
+
+footer{background:#040604;border-top:1px solid var(--gb);padding:clamp(2.5rem,6vw,4rem) clamp(1rem,6vw,7%) clamp(1.2rem,3vw,2rem);}
+.fttop{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:clamp(1.5rem,4vw,3rem);margin-bottom:clamp(2rem,4vw,3rem);}
+.ftbl{display:flex;align-items:center;gap:.75rem;margin-bottom:.9rem;}
+.ftbl img{width:42px;height:42px;border-radius:50%;border:1px solid var(--gb);object-fit:cover;flex-shrink:0;}
+.ftbl-n{font-family:var(--fs);font-weight:800;font-size:.88rem;line-height:1.2;}
+.ftbl-n b{color:var(--neon);}
+.ftd{font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;}
+.ftsoc{display:flex;gap:.7rem;}
+.fts{width:36px;height:36px;border-radius:var(--rm);background:var(--glass);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;font-size:1rem;text-decoration:none;transition:background .2s,border-color .2s,box-shadow .2s;}
+.fts:hover{background:rgba(57,255,20,.1);border-color:rgba(57,255,20,.35);box-shadow:0 0 12px rgba(57,255,20,.15);}
+.ftct{font-family:var(--fs);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--neon);margin-bottom:1.1rem;}
+.ftl{list-style:none;display:flex;flex-direction:column;gap:.65rem;}
+.ftl a{color:var(--muted);font-size:.82rem;transition:color .2s;}
+.ftl a:hover{color:var(--neon);}
+.ftbot{border-top:1px solid var(--gb);padding-top:1.3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;}
+.ftcp{font-size:.75rem;color:var(--muted);}
+.ftcp b{color:var(--neon);}
+
+/* ═══════════ FLOATS ═══════════ */
+.floats{position:fixed;bottom:clamp(1rem,3vw,2rem);right:clamp(1rem,3vw,2rem);z-index:150;display:flex;flex-direction:column;align-items:flex-end;gap:.7rem;}
+.fbk{background:var(--neon);color:var(--dark);height:50px;border-radius:30px;padding:0 1.3rem;display:flex;align-items:center;gap:.5rem;font-family:var(--fs);font-weight:700;font-size:.82rem;text-decoration:none;box-shadow:0 4px 18px var(--nglow);transition:box-shadow .2s,transform .2s;white-space:nowrap;}
+.fbk:hover{box-shadow:0 0 36px var(--nglow);transform:translateY(-2px);}
+
+/* ═══════════ CHATBOT TOGGLE BUTTON ═══════════ */
+.chat-toggle{
+  width:56px;height:56px;border-radius:50%;
+  background:var(--dark);
+  border:2px solid var(--neon);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 24px var(--nglow),0 4px 20px rgba(0,0,0,.5);
+  transition:transform .25s,box-shadow .25s,background .2s;
+  position:relative;
+}
+.chat-toggle:hover{transform:scale(1.1) rotate(-8deg);box-shadow:0 0 40px var(--nglow),0 6px 26px rgba(0,0,0,.6);background:rgba(57,255,20,.06);}
+.chat-toggle svg{width:26px;height:26px;}
+.chat-pulse{
+  position:absolute;top:-2px;right:-2px;
+  width:12px;height:12px;border-radius:50%;
+  background:var(--neon);border:2px solid var(--dark);
+  animation:cpulse 2s ease infinite;
+}
+@keyframes cpulse{0%{box-shadow:0 0 0 0 rgba(57,255,20,.7)}70%{box-shadow:0 0 0 8px rgba(57,255,20,0)}100%{box-shadow:0 0 0 0 rgba(57,255,20,0)}}
+
+/* ═══════════ CHAT WINDOW ═══════════ */
+.chat-window{
+  position:fixed;
+  bottom:calc(clamp(1rem,3vw,2rem) + 130px);
+  right:clamp(1rem,3vw,2rem);
+  width:clamp(300px,88vw,370px);
+  background:var(--dark2);
+  border:1px solid var(--gb);
+  border-radius:var(--rxl);
+  overflow:hidden;
+  box-shadow:0 28px 70px rgba(0,0,0,.75),0 0 50px rgba(57,255,20,.07);
+  display:none;flex-direction:column;
+  z-index:149;
+  transform-origin:bottom right;
+}
+.chat-window.open{display:flex;animation:chatPop .3s cubic-bezier(.34,1.56,.64,1) both;}
+@keyframes chatPop{from{opacity:0;transform:scale(.88) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+.chat-head{
+  background:linear-gradient(135deg,rgba(57,255,20,.09) 0%,rgba(57,255,20,.02) 100%);
+  border-bottom:1px solid var(--gb);
+  padding:.85rem 1rem;
+  display:flex;align-items:center;gap:.75rem;
+}
+.chat-head-av{
+  width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  background:rgba(57,255,20,.1);
+  border:1.5px solid rgba(57,255,20,.45);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.chat-head-av svg{width:22px;height:22px;fill:var(--neon);}
+.online-dot{position:absolute;bottom:1px;right:1px;width:9px;height:9px;border-radius:50%;background:var(--neon);border:2px solid var(--dark2);}
+.chat-head-info{flex:1;min-width:0;}
+.chat-head-name{font-family:var(--fs);font-size:.9rem;font-weight:700;color:var(--white);}
+.chat-head-sub{font-size:.66rem;color:var(--neon);font-family:var(--fs);opacity:.8;}
+.chat-close{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.04);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;font-size:.8rem;color:var(--muted);cursor:pointer;transition:background .2s,color .2s;flex-shrink:0;}
+.chat-close:hover{background:rgba(255,80,80,.12);color:#ff6464;border-color:rgba(255,80,80,.3);}
+
+.chat-msgs{flex:1;overflow-y:auto;padding:.9rem;display:flex;flex-direction:column;gap:.65rem;min-height:260px;max-height:320px;scrollbar-width:thin;scrollbar-color:var(--gb) transparent;}
+.chat-msgs::-webkit-scrollbar{width:3px;}
+.chat-msgs::-webkit-scrollbar-thumb{background:var(--gb);border-radius:3px;}
+
+.msg{display:flex;gap:.45rem;align-items:flex-end;max-width:90%;}
+.msg.bot{align-self:flex-start;}
+.msg.user{align-self:flex-end;flex-direction:row-reverse;}
+.msg-av{width:24px;height:24px;border-radius:50%;flex-shrink:0;background:rgba(57,255,20,.1);border:1px solid rgba(57,255,20,.3);display:flex;align-items:center;justify-content:center;}
+.msg-av svg{width:12px;height:12px;fill:var(--neon);}
+.msg-bubble{padding:.58rem .82rem;border-radius:14px;font-size:.82rem;line-height:1.55;font-family:var(--fs);}
+.msg.bot .msg-bubble{background:rgba(57,255,20,.07);border:1px solid rgba(57,255,20,.14);color:var(--white);border-bottom-left-radius:4px;}
+.msg.user .msg-bubble{background:var(--neon);color:var(--dark);font-weight:600;border-bottom-right-radius:4px;}
+
+.quick-replies{display:flex;flex-wrap:wrap;gap:.4rem;padding:.45rem .9rem .65rem;}
+.qr{background:transparent;border:1px solid var(--gb);color:var(--neon);padding:.32rem .7rem;border-radius:20px;font-family:var(--fs);font-size:.7rem;font-weight:600;cursor:pointer;transition:background .18s,border-color .18s,transform .15s;white-space:nowrap;}
+.qr:hover{background:rgba(57,255,20,.08);border-color:rgba(57,255,20,.45);transform:translateY(-1px);}
+
+.typing{display:flex;align-items:center;gap:.45rem;align-self:flex-start;}
+.typing-dots{display:flex;gap:3px;padding:.58rem .82rem;background:rgba(57,255,20,.07);border:1px solid rgba(57,255,20,.14);border-radius:14px;border-bottom-left-radius:4px;}
+.typing-dots span{width:5px;height:5px;background:var(--neon);border-radius:50%;animation:tdot .9s ease infinite;}
+.typing-dots span:nth-child(2){animation-delay:.15s;}
+.typing-dots span:nth-child(3){animation-delay:.3s;}
+@keyframes tdot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+
+.chat-input-row{display:flex;gap:.45rem;padding:.65rem .9rem;border-top:1px solid var(--gb);background:rgba(6,8,6,.6);}
+.chat-input{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--gb);border-radius:20px;padding:.52rem .9rem;color:var(--white);font-family:var(--fs);font-size:.82rem;outline:none;transition:border-color .2s;}
+.chat-input::placeholder{color:var(--muted);}
+.chat-input:focus{border-color:rgba(57,255,20,.4);}
+.chat-send{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:var(--neon);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:box-shadow .2s,transform .2s;border:none;}
+.chat-send:hover{box-shadow:0 0 16px var(--nglow);transform:scale(1.1);}
+.chat-send svg{width:14px;height:14px;fill:var(--dark);}
+
+/* ═══════════ REVEAL ═══════════ */
+.rv{opacity:0;transform:translateY(36px);transition:opacity .7s ease,transform .7s ease;}
+.rvl{opacity:0;transform:translateX(-36px);transition:opacity .7s ease,transform .7s ease;}
+.rvr{opacity:0;transform:translateX(36px);transition:opacity .7s ease,transform .7s ease;}
+.vis{opacity:1!important;transform:none!important;}
+.d1{transition-delay:.05s}.d2{transition-delay:.12s}.d3{transition-delay:.2s}.d4{transition-delay:.28s}.d5{transition-delay:.36s}
+
+@keyframes fU{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes fD{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:none}}
+@keyframes fI{from{opacity:0}to{opacity:1}}
+
+@media(max-width:960px){
+  .nav-l,.nav-bk{display:none;}.ham{display:flex;}
+  #about{grid-template-columns:1fr;}.aorb{max-width:260px;}
+  .hgrd{grid-template-columns:1fr 1fr;}.hgrd::before{display:none;}
+  .ggrid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}.gi.s2{grid-row:span 1;}
+  .awrap{grid-template-columns:1fr;}.bwrap{grid-template-columns:1fr;}
+  .fttop{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:600px){
+  :root{--sec:3rem 5%;}
+  .hstats{gap:1.5rem;}.hbtns{flex-direction:column;align-items:center;}
+  .bp,.bg2{width:100%;justify-content:center;max-width:280px;}
+  .afeats{grid-template-columns:1fr;}.hgrd{grid-template-columns:1fr;}
+  .ggrid{grid-template-columns:1fr;grid-template-rows:auto;}.gi{height:200px;}.gi.s2{height:220px;}
+  .fr{grid-template-columns:1fr;}.fttop{grid-template-columns:1fr;}
+  .ftbot{flex-direction:column;text-align:center;}
+  .fbk .fbktxt{display:none;}.fbk{width:52px;border-radius:50%;padding:0;justify-content:center;}
+  .chat-window{right:1rem;left:1rem;width:auto;}
+}
+@media(max-width:380px){.h1{font-size:2rem;}.sh{font-size:1.7rem;}}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<nav id="nav">
+  <a href="#hero" class="nav-b">
+    <img src="/mnt/user-data/uploads/1775504199894_image.png" alt="Logo" onerror="this.style.display='none'">
+    <div class="nav-b-t">Next Door<br><b>Car Wash</b></div>
+  </a>
+  <ul class="nav-l">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#areas">Areas</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+  </ul>
+  <a href="#booking" class="nav-bk">Book Now</a>
+  <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mob" id="mob">
+  <button class="mob-x" id="mobX">✕</button>
+  <a href="#about" onclick="cn()">About</a>
+  <a href="#services" onclick="cn()">Services</a>
+  <a href="#how" onclick="cn()">How It Works</a>
+  <a href="#areas" onclick="cn()">Areas</a>
+  <a href="#gallery" onclick="cn()">Gallery</a>
+  <a href="#testimonials" onclick="cn()">Reviews</a>
+  <a href="#booking" onclick="cn()" style="color:var(--neon)">Book Now</a>
+</div>
+
+<section id="hero">
+  <div class="hbg"></div>
+  <div class="hgrid"></div>
+  <canvas id="pc"></canvas>
+  <div class="hc">
+    <div class="chip">📍 Port Shepstone &amp; Scottburgh</div>
+    <h1 class="h1">Premium Mobile Car Wash<br><em>We Come To You.</em></h1>
+    <p class="hsub">Professional mobile car cleaning in Port Shepstone and Scottburgh. No queues, no hassle — just a spotless car.</p>
+    <p class="htag">✨ Manje Clean kakhulu, Manje fresh kakhulu!</p>
+    <div class="hbtns">
+      <a href="#booking" class="bp">🗓️ Book Now</a>
+      <a href="tel:0719663916" class="bg2">📞 071 966 3916</a>
+    </div>
+    <div class="hstats">
+      <div><div class="snum">100%</div><div class="slbl">Mobile Service</div></div>
+      <div><div class="snum">5★</div><div class="slbl">Customer Rating</div></div>
+      <div><div class="snum">2</div><div class="slbl">Service Areas</div></div>
+    </div>
+  </div>
+  <div class="scr"><span>Scroll</span><div class="sb"></div></div>
+</section>
+
+<section id="about" class="sec sd2 sb2">
+  <div class="avis rvl">
+    <div class="aorb">
+      <img src="/mnt/user-data/uploads/1775504199894_image.png" alt="Next Door Car Wash Logo" onerror="this.src='https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=400&q=80'">
+      <div class="abadge"><div class="ab-n">100%</div><div class="ab-l">Mobile</div></div>
+    </div>
+  </div>
+  <div class="rvr">
+    <div class="lbl">About Us</div>
+    <h2 class="sh">We Bring the Wash<br>to <em>Your Door</em></h2>
+    <p class="sp2">Next Door Mobile Car Wash is a premium mobile cleaning service on the KwaZulu-Natal South Coast. We bring professional-grade car cleaning directly to your home, office, or business — saving you time and delivering exceptional results every time.</p>
+    <div class="afeats">
+      <div class="af"><div class="af-i">🚗</div><div><div class="af-t">We Come To You</div><div class="af-d">No need to drive anywhere. We arrive at your location.</div></div></div>
+      <div class="af"><div class="af-i">💧</div><div><div class="af-t">Premium Products</div><div class="af-d">Professional-grade cleaning products on every job.</div></div></div>
+      <div class="af"><div class="af-i">⏰</div><div><div class="af-t">Flexible Booking</div><div class="af-d">Book at a time that works around your schedule.</div></div></div>
+      <div class="af"><div class="af-i">✅</div><div><div class="af-t">Guaranteed Results</div><div class="af-d">Your satisfaction is our priority — every single time.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="sec" style="text-align:center">
+  <div class="rv">
+    <div class="lbl" style="justify-content:center">Pricing</div>
+    <h2 class="sh">Choose Your <em>Vehicle Type</em></h2>
+    <p class="sp2" style="margin:0 auto">All services include a full exterior and interior clean tailored to your vehicle size.</p>
+  </div>
+  <div class="sgrid">
+    <div class="srv rv d1"><img class="simg" src="https://i.postimg.cc/kXC5VF6q/image.png" alt="Single Cab" loading="lazy"><span class="sico"></span><div class="styp">Single Cabs / E-Cabs</div><div class="sdsc">Compact pickup trucks and e-cab variants. Full interior &amp; exterior detail included.</div><div class="sprc">R1,400 <span>per wash</span></div><a href="#booking" class="sbtn">Book This Wash</a></div>
+    <div class="srv rv d2"><img class="simg" src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=600&q=80" alt="Small Car" loading="lazy"><span class="sico"></span><div class="styp">Small Cars</div><div class="sdsc">Sedans, hatchbacks and compact vehicles. A thorough clean inside and out.</div><div class="sprc">R1,800 <span>per wash</span></div><a href="#booking" class="sbtn">Book This Wash</a></div>
+    <div class="srv hot rv d3"><img class="simg" src="https://i.postimg.cc/vm2hPtxD/image.png" alt="Mid SUV" loading="lazy"><span class="sico"></span><div class="styp">Mid-Sized Cars</div><div class="sdsc">Mid SUVs, 7-seaters and crossovers. More space, more care, spotless finish.</div><div class="sprc">R2,000 <span>per wash</span></div><a href="#booking" class="sbtn">Book This Wash</a></div>
+    <div class="srv rv d4"><img class="simg" src="https://i.postimg.cc/gkGhZ6r7/image.png" alt="Big Car" loading="lazy"><span class="sico"></span><div class="styp">Bigger Cars</div><div class="sdsc">Double cabs, full-size SUVs and large family vehicles. Premium full-detail clean.</div><div class="sprc">R2,200 <span>per wash</span></div><a href="#booking" class="sbtn">Book This Wash</a></div>
+    <div class="srv rv d5"><img class="simg" src="https://i.postimg.cc/YqS97Nvf/image.png" alt="Commercial" loading="lazy"><span class="sico"></span><div class="styp">Commercial Vehicles</div><div class="sdsc">Taxis, Quantums &amp; commercial transport. Professional fleet-grade cleaning service.</div><div class="sprc">R2,500 <span>per wash</span></div><a href="#booking" class="sbtn">Book This Wash</a></div>
+  </div>
+</section>
+
+<section id="how" class="sec sd2 sb2" style="text-align:center">
+  <div class="rv">
+    <div class="lbl" style="justify-content:center">The Process</div>
+    <h2 class="sh">How It <em>Works</em></h2>
+    <p class="sp2" style="margin:0 auto">Three simple steps — no effort required from you.</p>
+  </div>
+  <div class="hgrd">
+    <div class="hw rv d1"><div class="hwn">01</div><div class="hwi">🗓️</div><div class="hwt">Book Online</div><p class="hwd">Fill in our quick booking form or call us directly. Choose your vehicle type, location and time.</p></div>
+    <div class="hw rv d2"><div class="hwn">02</div><div class="hwi">📍</div><div class="hwt">We Come To You</div><p class="hwd">Our professional team arrives at your home, office or business with all equipment needed.</p></div>
+    <div class="hw rv d3"><div class="hwn">03</div><div class="hwi">✨</div><div class="hwt">Car Leaves Spotless</div><p class="hwd">Sit back and relax. Your car gets a premium clean and leaves looking brand new.</p></div>
+  </div>
+</section>
+
+<section id="gallery" class="sec" style="text-align:center">
+  <div class="rv">
+    <div class="lbl" style="justify-content:center">Gallery</div>
+    <h2 class="sh">Our <em>Work</em></h2>
+    <p class="sp2" style="margin:0 auto">A peek at the quality we deliver on every single job.</p>
+  </div>
+  <div class="ggrid">
+    <div class="gi s2 rv"><img src="https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=900&q=80" alt="Car wash full detail" loading="lazy"><div class="giov"><div class="gilbl">🚿 Full Detail Service</div></div><div class="ginb"></div></div>
+    <div class="gi rv d1"><img src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=600&q=80" alt="Exterior wash" loading="lazy"><div class="giov"><div class="gilbl">💧 Exterior Wash</div></div><div class="ginb"></div></div>
+    <div class="gi rv d2"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Interior clean" loading="lazy"><div class="giov"><div class="gilbl">✨ Interior Clean</div></div><div class="ginb"></div></div>
+    <div class="gi rv d3"><img src="https://images.unsplash.com/photo-1600706432502-77a0e2e32790?w=600&q=80" alt="Foam treatment" loading="lazy"><div class="giov"><div class="gilbl">🫧 Foam Treatment</div></div><div class="ginb"></div></div>
+    <div class="gi rv d4"><img src="https://images.unsplash.com/photo-1590362891991-f776e747a588?w=600&q=80" alt="Commercial vehicle" loading="lazy"><div class="giov"><div class="gilbl">🚐 Commercial Vehicles</div></div><div class="ginb"></div></div>
+  </div>
+</section>
+
+<section id="areas" class="sec sd2 sb2">
+  <div class="rv" style="text-align:center;margin-bottom:0">
+    <div class="lbl" style="justify-content:center">Service Areas</div>
+    <h2 class="sh" style="text-align:center">Where We <em>Operate</em></h2>
+  </div>
+  <div class="awrap">
+    <div class="rvl">
+      <div class="mbox"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d227543.66!2d30.58!3d-30.73!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef6e1c1c2fa6789%3A0x0!2sPort+Shepstone%2C+KwaZulu-Natal!5e0!3m2!1sen!2sza" allowfullscreen="" loading="lazy"></iframe></div>
+    </div>
+    <div class="rvr">
+      <p class="sp2" style="margin-bottom:1.5rem">We currently serve the KwaZulu-Natal South Coast with plans to expand further.</p>
+      <div class="acards">
+        <div class="ac"><div class="apin">📍</div><div><div class="anm">Port Shepstone</div><div class="asub">KwaZulu-Natal South Coast</div></div></div>
+        <div class="ac"><div class="apin">📍</div><div><div class="anm">Scottburgh</div><div class="asub">KwaZulu-Natal South Coast</div></div></div>
+      </div>
+      <div class="anote">🏠 We come to your home, office, or business.</div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials" class="sec">
+  <div class="rv" style="text-align:center">
+    <div class="lbl" style="justify-content:center">Testimonials</div>
+    <h2 class="sh" style="text-align:center">What Customers <em>Say</em></h2>
+  </div>
+  <div class="rwrap">
+    <div class="rtrack">
+      <div class="rc"><div class="rstar">★★★★★</div><p class="rtxt">"Best mobile car wash in the area. My car has never looked this clean — and they came right to my driveway!"</p><div class="rauth"><div class="rav">T</div><div><div class="rnm">Thabo M.</div><div class="rloc">Port Shepstone</div></div></div></div>
+      <div class="rc"><div class="rstar">★★★★★</div><p class="rtxt">"My car looks brand new! The team is professional, thorough, and quick. Will definitely use again."</p><div class="rauth"><div class="rav">N</div><div><div class="rnm">Nompumelelo S.</div><div class="rloc">Scottburgh</div></div></div></div>
+      <div class="rc"><div class="rstar">★★★★★</div><p class="rtxt">"Professional and convenient. They came to my office while I was working. Came back to a spotless car!"</p><div class="rauth"><div class="rav">S</div><div><div class="rnm">Sipho D.</div><div class="rloc">Port Shepstone</div></div></div></div>
+      <div class="rc"><div class="rstar">★★★★★</div><p class="rtxt">"Amazing service. Great value for money. My SUV looks absolutely immaculate inside and out!"</p><div class="rauth"><div class="rav">A</div><div><div class="rnm">Ayanda K.</div><div class="rloc">Scottburgh</div></div></div></div>
+      <div class="rc"><div class="rstar">★★★★★</div><p class="rtxt">"I booked online and they arrived right on time. Super friendly team and exceptional attention to detail!"</p><div class="rauth"><div class="rav">B</div><div><div class="rnm">Bongani N.</div><div class="rloc">Port Shepstone</div></div></div></div>
+      <div class="rc"><div class="rstar">★★★★★</div><p class="rtxt">"Manje clean kakhulu! They really live up to the tagline. Will be booking every month from now!"</p><div class="rauth"><div class="rav">Z</div><div><div class="rnm">Zanele P.</div><div class="rloc">Scottburgh</div></div></div></div>
+      <div class="rc"><div class="rstar">★★★★★</div><p class="rtxt">"Best mobile car wash in the area. My car has never looked this clean — and they came right to my driveway!"</p><div class="rauth"><div class="rav">T</div><div><div class="rnm">Thabo M.</div><div class="rloc">Port Shepstone</div></div></div></div>
+      <div class="rc"><div class="rstar">★★★★★</div><p class="rtxt">"My car looks brand new! The team is professional, thorough, and quick. Will definitely use again."</p><div class="rauth"><div class="rav">N</div><div><div class="rnm">Nompumelelo S.</div><div class="rloc">Scottburgh</div></div></div></div>
+      <div class="rc"><div class="rstar">★★★★★</div><p class="rtxt">"Professional and convenient. They came to my office while I was working. Came back to a spotless car!"</p><div class="rauth"><div class="rav">S</div><div><div class="rnm">Sipho D.</div><div class="rloc">Port Shepstone</div></div></div></div>
+      <div class="rc"><div class="rstar">★★★★★</div><p class="rtxt">"Amazing service. Great value for money. My SUV looks absolutely immaculate inside and out!"</p><div class="rauth"><div class="rav">A</div><div><div class="rnm">Ayanda K.</div><div class="rloc">Scottburgh</div></div></div></div>
+      <div class="rc"><div class="rstar">★★★★★</div><p class="rtxt">"I booked online and they arrived right on time. Super friendly team and exceptional attention to detail!"</p><div class="rauth"><div class="rav">B</div><div><div class="rnm">Bongani N.</div><div class="rloc">Port Shepstone</div></div></div></div>
+      <div class="rc"><div class="rstar">★★★★★</div><p class="rtxt">"Manje clean kakhulu! They really live up to the tagline. Will be booking every month from now!"</p><div class="rauth"><div class="rav">Z</div><div><div class="rnm">Zanele P.</div><div class="rloc">Scottburgh</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="booking" class="sec sd2 sb2">
+  <div class="bwrap">
+    <div class="rvl">
+      <div class="lbl">Book A Wash</div>
+      <h2 class="sh">Ready For a <em>Spotless</em> Car?</h2>
+      <p class="sp2" style="margin-bottom:2rem">Fill in the form and we'll confirm your booking. Or reach us directly:</p>
+      <div class="bcon">
+        <div class="ci"><div class="cico">📞</div><div><div class="clbl">Phone / WhatsApp</div><a href="tel:0719663916" class="cval">071 966 3916</a></div></div>
+        <div class="ci"><div class="cico">📸</div><div><div class="clbl">Instagram</div><a href="https://instagram.com/nextdoormobilecarwash" target="_blank" class="cval">@nextdoormobilecarwash</a></div></div>
+        <div class="ci"><div class="cico">🎵</div><div><div class="clbl">TikTok</div><a href="https://tiktok.com/@next.door.car.mob" target="_blank" class="cval">@next.door.car.mob</a></div></div>
+        <div class="ci"><div class="cico">📍</div><div><div class="clbl">Service Areas</div><div class="cval" style="cursor:default">Port Shepstone &amp; Scottburgh</div></div></div>
+      </div>
+    </div>
+    <div class="rvr">
+      <div class="bform">
+        <div id="fWrap">
+          <div style="margin-bottom:1.4rem">
+            <div class="lbl">Online Booking</div>
+            <div style="font-family:var(--fd);font-style:italic;font-size:1.35rem;font-weight:700">Book My Wash</div>
+          </div>
+          <div class="fr">
+            <div class="fg"><label class="fl">Your Name</label><input class="fi" id="fn" name="name" type="text" placeholder="Full name" required></div>
+            <div class="fg"><label class="fl">Phone Number</label><input class="fi" id="fp" name="phone" type="tel" placeholder="071 234 5678" required></div>
+          </div>
+          <div class="fg">
+            <label class="fl">Vehicle Type</label>
+            <select class="fsel" id="fv" name="vehicle" required>
+              <option value="">Select vehicle type</option>
+              <option>Single Cab / E-Cab — R1,400</option>
+              <option>Small Car (Sedan/Hatchback) — R1,800</option>
+              <option>Mid-Sized Car (Mid SUV/7-seater) — R2,000</option>
+              <option>Bigger Car (Double Cab/SUV) — R2,200</option>
+              <option>Commercial (Taxi/Quantum) — R2,500</option>
+            </select>
+          </div>
+          <div class="fg"><label class="fl">Your Location</label><input class="fi" id="fl2" name="location" type="text" placeholder="Address or area"></div>
+          <div class="fr">
+            <div class="fg"><label class="fl">Preferred Date</label><input class="fi" id="fd" name="date" type="date"></div>
+            <div class="fg"><label class="fl">Preferred Time</label><input class="fi" id="ft2" name="time" type="time"></div>
+          </div>
+          <div class="fg"><label class="fl">Additional Notes</label><textarea class="fta" id="fno" name="notes" placeholder="Any special requests..."></textarea></div>
+          <button class="bsub" id="bsubBtn" onclick="submitForm()">✨ Book My Wash</button>
+        </div>
+        <div class="fsuc" id="fOk">
+          <div class="si">🎉</div>
+          <div class="st">Booking Received!</div>
+          <p class="sm">Thanks! We'll confirm via WhatsApp or call shortly.<br><br>Reach us at <strong style="color:var(--neon)">071 966 3916</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="ctabg"></div>
+  <div class="ctaglow"></div>
+  <div class="ctac rv">
+    <div class="lbl" style="justify-content:center">Get Started</div>
+    <h2 class="sh">Your Car Deserves<br>The <em>Best Clean.</em></h2>
+    <p class="sp2" style="margin:0 auto 2.5rem">Don't settle for a dusty car. Book a premium mobile wash today.</p>
+    <div class="hbtns">
+      <a href="#booking" class="bp">🗓️ Book Now</a>
+      <a href="tel:0719663916" class="bg2">📞 Call 071 966 3916</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fttop">
+    <div>
+      <div class="ftbl">
+        <img src="/mnt/user-data/uploads/1775504199894_image.png" alt="Logo" onerror="this.style.display='none'">
+        <div class="ftbl-n">Next Door<br><b>Mobile Car Wash</b></div>
+      </div>
+      <p class="ftd">Premium mobile car cleaning on the KwaZulu-Natal South Coast. We come to you.</p>
+      <div class="ftsoc">
+        <a href="https://instagram.com/nextdoormobilecarwash" target="_blank" class="fts">📸</a>
+        <a href="https://tiktok.com/@next.door.car.mob" target="_blank" class="fts">🎵</a>
+        <a href="https://wa.me/27719663916" target="_blank" class="fts">💬</a>
+        <a href="tel:0719663916" class="fts">📞</a>
+      </div>
+    </div>
+    <div>
+      <div class="ftct">Quick Links</div>
+      <ul class="ftl">
+        <li><a href="#about">About Us</a></li><li><a href="#services">Services</a></li>
+        <li><a href="#how">How It Works</a></li><li><a href="#gallery">Gallery</a></li>
+        <li><a href="#testimonials">Reviews</a></li><li><a href="#booking">Book Now</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="ftct">Service Areas</div>
+      <ul class="ftl">
+        <li><a href="#areas">Port Shepstone</a></li>
+        <li><a href="#areas">Scottburgh</a></li>
+        <li><a href="#areas">KZN South Coast</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="ftct">Contact</div>
+      <ul class="ftl">
+        <li><a href="tel:0719663916">071 966 3916</a></li>
+        <li><a href="https://wa.me/27719663916">WhatsApp</a></li>
+        <li><a href="https://instagram.com/nextdoormobilecarwash">Instagram</a></li>
+        <li><a href="https://tiktok.com/@next.door.car.mob">TikTok</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ftbot">
+    <div class="ftcp">© 2025 <b>Next Door Mobile Car Wash</b> · Port Shepstone &amp; Scottburgh, KZN</div>
+    <div class="ftcp"><b>✨ Manje Clean kakhulu, Manje fresh kakhulu!</b></div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════
+     FLOATING BUTTONS
+═══════════════════════════════ -->
+<div class="floats">
+  <button class="chat-toggle" id="chatToggle" aria-label="Open chat assistant">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="10" width="20" height="14" rx="4" fill="#39FF14" opacity=".15" stroke="#39FF14" stroke-width="1.5"/>
+      <circle cx="12" cy="17" r="2" fill="#39FF14"/>
+      <circle cx="20" cy="17" r="2" fill="#39FF14"/>
+      <path d="M12 21 Q16 24 20 21" stroke="#39FF14" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <line x1="16" y1="10" x2="16" y2="6" stroke="#39FF14" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="16" cy="5" r="1.5" fill="#39FF14"/>
+      <path d="M6 15 Q3 17 6 19" stroke="#39FF14" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <path d="M26 15 Q29 17 26 19" stroke="#39FF14" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    </svg>
+    <div class="chat-pulse"></div>
+  </button>
+  <a href="#booking" class="fbk"><span>🚗</span><span class="fbktxt">Book Now</span></a>
+</div>
+
+<!-- ═══════════════════════════════
+     CHATBOT WINDOW
+═══════════════════════════════ -->
+<div class="chat-window" id="chatWindow">
+  <div class="chat-head">
+    <div class="chat-head-av">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="10" width="20" height="14" rx="4" fill="#39FF14" opacity=".2" stroke="#39FF14" stroke-width="1.5"/>
+        <circle cx="12" cy="17" r="2" fill="#39FF14"/>
+        <circle cx="20" cy="17" r="2" fill="#39FF14"/>
+        <path d="M12 21 Q16 24 20 21" stroke="#39FF14" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <line x1="16" y1="10" x2="16" y2="6" stroke="#39FF14" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="16" cy="5" r="1.5" fill="#39FF14"/>
+      </svg>
+      <div class="online-dot"></div>
+    </div>
+    <div class="chat-head-info">
+      <div class="chat-head-name">Wash Bot</div>
+      <div class="chat-head-sub">● Online · Next Door Car Wash AI</div>
+    </div>
+    <button class="chat-close" id="chatClose">✕</button>
+  </div>
+
+  <div class="chat-msgs" id="chatMsgs"></div>
+  <div class="quick-replies" id="quickReplies"></div>
+
+  <div class="chat-input-row">
+    <input class="chat-input" id="chatInput" type="text" placeholder="Ask me anything…" autocomplete="off">
+    <button class="chat-send" id="chatSend">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+/* ══════ CURSOR ══════ */
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+if(cur&&curR){
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+  (function r(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(r);})();
+  document.querySelectorAll('a,button,.srv,.hw,.ac,.rc').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.width='16px';cur.style.height='16px';curR.style.width='46px';curR.style.height='46px';curR.style.opacity='.75';});
+    el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';curR.style.width='34px';curR.style.height='34px';curR.style.opacity='.45';});
+  });
+}
+
+/* ══════ NAV ══════ */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('on',scrollY>50));
+const mob=document.getElementById('mob');
+document.getElementById('ham').addEventListener('click',()=>mob.classList.add('open'));
+document.getElementById('mobX').addEventListener('click',()=>mob.classList.remove('open'));
+function cn(){mob.classList.remove('open');}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}});
+});
+
+/* ══════ REVEAL ══════ */
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');});},{threshold:.1});
+document.querySelectorAll('.rv,.rvl,.rvr').forEach(el=>ro.observe(el));
+
+/* ══════ PARTICLES ══════ */
+const cv=document.getElementById('pc'),cx=cv.getContext('2d');
+function rsz(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight;}
+rsz();window.addEventListener('resize',rsz);
+class Pt{constructor(){this.x=Math.random()*cv.width;this.y=Math.random()*cv.height;this.r=Math.random()*1.5+.4;this.vx=(Math.random()-.5)*.35;this.vy=-Math.random()*.55-.15;this.life=1;this.decay=Math.random()*.003+.001;}tick(){this.x+=this.vx;this.y+=this.vy;this.life-=this.decay;cx.save();cx.globalAlpha=this.life*.55;cx.fillStyle='#39FF14';cx.shadowBlur=5;cx.shadowColor='#39FF14';cx.beginPath();cx.arc(this.x,this.y,this.r,0,Math.PI*2);cx.fill();cx.restore();}}
+let pts=[];
+(function loop(){cx.clearRect(0,0,cv.width,cv.height);if(pts.length<70)pts.push(new Pt());pts=pts.filter(p=>p.life>0);pts.forEach(p=>p.tick());requestAnimationFrame(loop);})();
+
+/* ══════ BOOKING FORM ══════ */
+function submitForm(){
+  const n=document.getElementById('fn').value.trim();
+  const p=document.getElementById('fp').value.trim();
+  const v=document.getElementById('fv').value;
+  if(!n||!p||!v){alert('Please fill in your name, phone number, and vehicle type.');return;}
+  const btn=document.getElementById('bsubBtn');
+  btn.textContent='⏳ Sending...';btn.disabled=true;
+  const tp={name:n,phone:p,vehicle:v,location:document.getElementById('fl2').value,date:document.getElementById('fd').value,time:document.getElementById('ft2').value,notes:document.getElementById('fno').value};
+  emailjs.send('service_40rxiur','template_2bqzemh',tp)
+    .then(()=>{
+      document.getElementById('fWrap').style.display='none';
+      document.getElementById('fOk').classList.add('show');
+      const msg=encodeURIComponent(`Hi Next Door Car Wash! I'd like to book.\n\nName: ${n}\nPhone: ${p}\nVehicle: ${v}\nLocation: ${tp.location}\nDate: ${tp.date}\nTime: ${tp.time}\nNotes: ${tp.notes}`);
+      setTimeout(()=>window.open(`https://wa.me/27719663916?text=${msg}`,'_blank'),1000);
+    })
+    .catch(err=>{
+      console.error('EmailJS error:',err);
+      alert('There was an issue sending your booking. Please call or WhatsApp us on 071 966 3916.');
+      btn.textContent='✨ Book My Wash';btn.disabled=false;
+    });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ✅ FIXED CHATBOT — Fully functional rule-based assistant
+   Answers all questions about pricing, services, areas, booking, etc.
+════════════════════════════════════════════════════════════ */
+const chatToggle=document.getElementById('chatToggle');
+const chatWindow=document.getElementById('chatWindow');
+const chatClose=document.getElementById('chatClose');
+const chatMsgs=document.getElementById('chatMsgs');
+const chatInput=document.getElementById('chatInput');
+const chatSend=document.getElementById('chatSend');
+const quickReplies=document.getElementById('quickReplies');
+
+let greeted=false;
+
+const BOT_AV=`<div class="msg-av"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="14" rx="4" fill="#39FF14" opacity=".15" stroke="#39FF14" stroke-width="1.5"/><circle cx="12" cy="17" r="2" fill="#39FF14"/><circle cx="20" cy="17" r="2" fill="#39FF14"/><path d="M12 21 Q16 24 20 21" stroke="#39FF14" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></div>`;
+
+// Business data for the chatbot
+const BUSINESS_INFO = {
+  name: "Next Door Mobile Car Wash",
+  tagline: "Manje Clean kakhulu, Manje fresh kakhulu!",
+  phone: "071 966 3916",
+  whatsapp: "071 966 3916",
+  instagram: "@nextdoormobilecarwash",
+  tiktok: "@next.door.car.mob",
+  areas: ["Port Shepstone", "Scottburgh"],
+  description: "Premium mobile car cleaning on the KwaZulu-Natal South Coast. We come to you!",
+  howItWorks: "1. Book online or call us\n2. We arrive at your location with all equipment\n3. We give your car a professional exterior & interior clean\n4. You drive away with a spotless car!",
+  pricing: {
+    "single cab / e-cab": "R1,400",
+    "single cab": "R1,400",
+    "e-cab": "R1,400",
+    "small car": "R1,800",
+    "sedan": "R1,800",
+    "hatchback": "R1,800",
+    "mid-sized car": "R2,000",
+    "mid suv": "R2,000",
+    "7-seater": "R2,000",
+    "bigger car": "R2,200",
+    "double cab": "R2,200",
+    "suv": "R2,200",
+    "commercial": "R2,500",
+    "taxi": "R2,500",
+    "quantum": "R2,500"
+  },
+  pricingList: "• Single Cab / E-Cab — R1,400\n• Small Car (Sedan/Hatchback) — R1,800\n• Mid-Sized Car (Mid SUV/7-seater) — R2,000\n• Bigger Car (Double Cab/Full-size SUV) — R2,200\n• Commercial Vehicle (Taxi/Quantum) — R2,500"
+};
+
+// Chatbot response logic
+function getBotResponse(userMessage) {
+  const msg = userMessage.toLowerCase().trim();
+  
+  // Greetings
+  if (msg.match(/^(hi|hello|hey|howdy|good morning|good afternoon|good evening|sup|yo|hola)$/i)) {
+    return "👋 Hi there! Welcome to Next Door Mobile Car Wash! How can I help you today?";
+  }
+  
+  // Pricing questions
+  if (msg.match(/price|pricing|cost|how much|rate|what.*pay|expensive|cheap|affordable|fee|charges/i)) {
+    if (msg.match(/single cab|e-cab|bakkie|pickup/i)) {
+      return "🚗 Single Cab / E-Cab wash costs **R1,400**. This includes a full exterior and interior clean. Want to book?";
+    }
+    if (msg.match(/small car|sedan|hatchback|small vehicle/i)) {
+      return "🚙 Small Car (Sedan/Hatchback) wash costs **R1,800**. Full detail inside and out. Ready to book?";
+    }
+    if (msg.match(/mid|suv|7 seater|seven seater|crossover/i)) {
+      return "🚙 Mid-Sized Car (Mid SUV / 7-seater) wash costs **R2,000**. Premium clean for larger vehicles. Interested?";
+    }
+    if (msg.match(/big|double cab|large|full size/i)) {
+      return "🚛 Bigger Car (Double Cab / Full-size SUV) wash costs **R2,200**. Thorough professional clean. Shall I help you book?";
+    }
+    if (msg.match(/commercial|taxi|quantum|fleet|business/i)) {
+      return "🚐 Commercial Vehicle (Taxi/Quantum) wash costs **R2,500**. Fleet-grade professional cleaning. Need more info?";
+    }
+    return `💰 Here are our prices:\n${BUSINESS_INFO.pricingList}\n\nWhich vehicle do you have? I can give you the exact price.`;
+  }
+  
+  // Service areas
+  if (msg.match(/area|where|location|service area|do you come|operate|region|south coast|kzn/i)) {
+    return `📍 We currently serve **${BUSINESS_INFO.areas.join(" and ")}** on the KwaZulu-Natal South Coast.\n\nWe come to your home, office, or business — no need to drive anywhere! 🚗✨`;
+  }
+  
+  // Booking questions
+  if (msg.match(/book|booking|appointment|schedule|reserve|how.*book|make a booking/i)) {
+    return "🗓️ Booking is super easy! You can:\n\n• Use the **Booking Form** on this page (scroll down)\n• Call/WhatsApp us on **071 966 3916**\n• Click the **'Book Now'** button anywhere on the site\n\nWould you like me to scroll to the booking form for you?";
+  }
+  
+  // How it works
+  if (msg.match(/how.*work|process|steps|what.*happen|procedure|how does|tell me how/i)) {
+    return `📋 Here's how it works:\n\n${BUSINESS_INFO.howItWorks}\n\nSimple, right? 😊 Want to book a wash?`;
+  }
+  
+  // Contact info
+  if (msg.match(/contact|phone|whatsapp|call|number|reach|get in touch|message|sms/i)) {
+    return `📞 You can reach us at:\n\n• Phone/WhatsApp: **${BUSINESS_INFO.phone}**\n• Instagram: ${BUSINESS_INFO.instagram}\n• TikTok: ${BUSINESS_INFO.tiktok}\n\nWe typically respond within minutes! 💬`;
+  }
+  
+  // About the business
+  if (msg.match(/about|who are you|company|business|tell me about|what do you do/i)) {
+    return `✨ **${BUSINESS_INFO.name}**\n\n${BUSINESS_INFO.description}\n\n${BUSINESS_INFO.tagline}\n\nWe're a fully mobile service — we come to your door with professional equipment and premium products. No queues, no hassle! 🚗💨`;
+  }
+  
+  // Testimonials/reviews
+  if (msg.match(/review|testimonial|customer say|feedback|rating|people say/i)) {
+    return "⭐ We have **5-star ratings** from our customers! Here's what some of them say:\n\n• 'Best mobile car wash in the area. My car has never looked this clean!'\n• 'Professional, thorough, and quick. Will definitely use again.'\n• 'Manje clean kakhulu! They really live up to the tagline.'\n\nWant to see more? Scroll to the Testimonials section! 🎉";
+  }
+  
+  // Thanks / appreciation
+  if (msg.match(/thank|thanks|appreciate|grateful/i)) {
+    return "You're most welcome! 😊 We're here to help keep your car spotless. Is there anything else I can assist you with?";
+  }
+  
+  // Goodbye
+  if (msg.match(/bye|goodbye|see you|chat later|exit|close/i)) {
+    return "👋 Thanks for chatting! Have a sparkling day! Remember — we come to you! 🚗✨ Click the chat button anytime if you need help. Bye for now!";
+  }
+  
+  // Default / help response
+  return "🤔 I'm here to help! You can ask me about:\n\n💰 **Prices** (e.g., 'How much for a small car?')\n📍 **Service areas** (Port Shepstone & Scottburgh)\n🗓️ **Booking** ('How do I book?')\n📞 **Contact info**\n⭐ **Reviews**\n📋 **How it works**\n\nWhat would you like to know? 😊";
+}
+
+function toggleChat(){
+  if(chatWindow.classList.contains('open')){
+    chatWindow.classList.remove('open');
+  } else {
+    chatWindow.classList.add('open');
+    document.querySelector('.chat-pulse').style.display='none';
+    if(!greeted){
+      greeted=true;
+      setTimeout(() => {
+        botSay("👋 Hey! I'm Wash Bot, Next Door Car Wash's AI assistant.\n\n💧 I can help with:\n• Prices & vehicle types\n• Service areas (Port Shepstone & Scottburgh)\n• Booking info\n• Contact details\n• How it works\n\nWhat would you like to know?", ['Prices 💰', 'Service Areas 📍', 'How to Book 🗓️', 'Contact 📞']);
+      }, 350);
+    }
+  }
+}
+
+chatToggle.addEventListener('click',toggleChat);
+chatClose.addEventListener('click',()=>chatWindow.classList.remove('open'));
+
+function botSay(text, replies=[]){
+  document.querySelector('.typing')?.remove();
+  const div=document.createElement('div');
+  div.className='msg bot';
+  div.innerHTML=`${BOT_AV}<div class="msg-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  chatMsgs.appendChild(div);
+  scrollChat();
+  
+  quickReplies.innerHTML='';
+  if(replies.length){
+    replies.forEach(r=>{
+      const b=document.createElement('button');b.className='qr';b.textContent=r;
+      b.onclick=()=>userSay(r);
+      quickReplies.appendChild(b);
+    });
+  } else {
+    const suggestions=['Prices 💰', 'Service Areas 📍', 'How to Book 🗓️', 'Contact 📞'];
+    suggestions.forEach(s=>{
+      const b=document.createElement('button');b.className='qr';b.textContent=s;
+      b.onclick=()=>userSay(s);
+      quickReplies.appendChild(b);
+    });
+  }
+}
+
+function userSay(text){
+  if(!text.trim())return;
+  quickReplies.innerHTML='';
+  chatInput.value='';
+  const div=document.createElement('div');
+  div.className='msg user';
+  div.innerHTML=`<div class="msg-bubble">${text}</div>`;
+  chatMsgs.appendChild(div);
+  scrollChat();
+  
+  // Handle quick reply shortcuts
+  if(text === 'Prices 💰') text = 'What are your prices?';
+  if(text === 'Service Areas 📍') text = 'Where do you operate?';
+  if(text === 'How to Book 🗓️') text = 'How do I book?';
+  if(text === 'Contact 📞') text = 'What is your contact number?';
+  if(text === 'WhatsApp Us'){ window.open('https://wa.me/27719663916','_blank'); botSay('Opening WhatsApp for you! 💬',['Prices 💰','How to Book 🗓️']); return; }
+  if(text === 'Call Now'){ window.location.href='tel:0719663916'; return; }
+  if(text === 'Book a Wash'){ botSay("🗓️ Great! You can book using the form on this page. Shall I scroll you there?",['Yes please!','Prices 💰','Contact 📞']); return; }
+  if(text === 'Yes please!'){ document.querySelector('#booking').scrollIntoView({behavior:'smooth'}); botSay("There you go! 🚗 Fill in your details and we'll confirm your booking. Anything else?",['Prices 💰','Contact 📞']); return; }
+  
+  showTyping();
+  setTimeout(() => {
+    const response = getBotResponse(text);
+    botSay(response);
+  }, 400);
+}
+
+chatSend.addEventListener('click',()=>userSay(chatInput.value));
+chatInput.addEventListener('keydown',e=>{if(e.key==='Enter')userSay(chatInput.value);});
+
+function showTyping(){
+  const t=document.createElement('div');
+  t.className='typing';
+  t.innerHTML=`${BOT_AV}<div class="typing-dots"><span></span><span></span><span></span></div>`;
+  chatMsgs.appendChild(t);
+  scrollChat();
+}
+
+function scrollChat(){chatMsgs.scrollTop=chatMsgs.scrollHeight;}
+</script>
+</body>
+</html>
